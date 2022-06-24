@@ -1,0 +1,45 @@
+.employee-widget {
+  display: flex;
+  align-items: center;
+
+  padding: 1rem;
+
+  border: 1px solid grey;
+  background-color: var(--light-grey);
+}
+
+.employee-widget__img-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.employee-widget__img-section > img {
+  height: 12.5rem;
+  width: 12.5rem;
+  border: 1px solid grey;
+}
+
+.employee-widget__info-section {
+  height: 100%;
+}
+
+.employee-widget__info-section__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  line-height: 2.25;
+
+  list-style-type: none;
+}
+
+.employee-widget__btn-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  height: 12.5rem;
+  margin-left: auto;
+}
