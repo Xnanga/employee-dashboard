@@ -1,14 +1,22 @@
 // import JSONResponseTest from "./components/JSONResponseTest";
-import MainBodyLayout from "./components/layout/MainBodyLayout";
-import EmployeeList from "./components/employee list/EmployeeList";
+import MainTopBar from "./components/ui/MainTopBar";
+import EmployeeList from "./components/employee-list/EmployeeList";
 
 const App = () => {
+  const btnTestAction = () => {
+    console.log("Button Press");
+  };
+
   return (
     <div className="App">
-      <MainBodyLayout>
-        <h1>Current Employees</h1>
-        <EmployeeList />
-      </MainBodyLayout>
+      <MainTopBar
+        title="Employee Entries"
+        hyperlink="/add-employee"
+        btnColor="default-btn--green"
+        btnLabel="+ Add Entry"
+        btnAction={btnTestAction}
+      />
+      <EmployeeList />
     </div>
   );
 };
