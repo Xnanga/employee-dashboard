@@ -2,4 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  height: 35rem;
+}
+
+.employee-entry-form > input {
+  margin-bottom: 1.5rem;
+}
+
+.employee-entry-form > button {
+  margin-top: auto;
 }

@@ -2,6 +2,10 @@
 
 node_modules
 
+# Credentials
+
+/server/db-credentials
+
 # REACT
 
 # dependencies
