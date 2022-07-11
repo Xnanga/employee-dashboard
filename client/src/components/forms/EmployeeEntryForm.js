@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import styles from "./EmployeeEntryForm.module.css";
+import styles from './EmployeeEntryForm.module.css';
 
-import DefaultButton from "../ui/DefaultButton";
+import DefaultButton from '../ui/DefaultButton';
 
 const checkForNullishValues = (arr) => {
   const trimmedValues = arr.map((val) => val.trim());
@@ -18,23 +18,23 @@ const checkForNullishValues = (arr) => {
 };
 
 const EmployeeEntryForm = () => {
-  const [profileImageFile, setProfileImageFile] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [position, setPosition] = useState("");
-  const [department, setDepartment] = useState("it");
+  const [profileImageFile, setProfileImageFile] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [position, setPosition] = useState('');
+  const [department, setDepartment] = useState('it');
   const [formSubmitError, setFormSubmitError] = useState(false);
 
   const inputChangeHandler = (e) => {
     const inputElementId = e.target.id;
     const inputElementValue = e.target.value;
 
-    if (inputElementId === "profile-image")
+    if (inputElementId === 'profile-image')
       setProfileImageFile(inputElementValue);
-    if (inputElementId === "fname") setFirstName(inputElementValue);
-    if (inputElementId === "lname") setLastName(inputElementValue);
-    if (inputElementId === "position") setPosition(inputElementValue);
-    if (inputElementId === "department") setDepartment(inputElementValue);
+    if (inputElementId === 'fname') setFirstName(inputElementValue);
+    if (inputElementId === 'lname') setLastName(inputElementValue);
+    if (inputElementId === 'position') setPosition(inputElementValue);
+    if (inputElementId === 'department') setDepartment(inputElementValue);
   };
 
   const employeeEntryFormSubmit = (e) => {
@@ -59,15 +59,17 @@ const EmployeeEntryForm = () => {
 
   return (
     <form
-      className={styles["employee-entry-form"]}
+      className={styles['employee-entry-form']}
       onSubmit={employeeEntryFormSubmit}
     >
+      <label htmlFor="profile-image">Profile Photo:</label>
       <input
         type="file"
         id="profile-image"
         name="profile-image"
         value={profileImageFile}
         onChange={inputChangeHandler}
+        placeholder="Joe"
         required
       ></input>
       <label htmlFor="fname">First Name:</label>
