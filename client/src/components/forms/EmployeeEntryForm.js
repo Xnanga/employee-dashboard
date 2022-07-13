@@ -10,10 +10,38 @@ const checkForNullishValues = (arr) => {
   const anyValuesLessThanZeroLength = trimmedValues.some(
     (val) => val.length < 1
   );
-  if (anyValuesFalsy || anyValuesLessThanZeroLength) {
-    return true;
-  } else {
+  return anyValuesFalsy || anyValuesLessThanZeroLength;
+};
+
+const checkFileSubmitIsInvalid = (filePath) => {
+  const fileExtensionStartIndex = filePath.indexOf('.');
+  const fileExtension = filePath.slice(fileExtensionStartIndex + 1);
+
+  if (
+    fileExtension === 'png' ||
+    fileExtension === 'jpg' ||
+    fileExtension === 'jpeg'
+  ) {
     return false;
+  }
+
+  return true;
+};
+
+const postFormData = async (url = '', data = {}) => {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // prettier-ignore
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -48,13 +76,28 @@ const EmployeeEntryForm = () => {
       department,
     ];
 
-    if (checkForNullishValues(allFormValues)) {
+    const nullishValuesCheck = checkForNullishValues(allFormValues);
+    const fileSubmissionInvalidCheck =
+      checkFileSubmitIsInvalid(profileImageFile);
+
+    if (nullishValuesCheck || fileSubmissionInvalidCheck) {
       setFormSubmitError(true);
+      setProfileImageFile('');
       return;
     }
 
     setFormSubmitError(false);
-    console.log(allFormValues);
+
+    const newEmployeeData = {
+      profileImageFilename: profileImageFile,
+      firstName: firstName,
+      lastName: lastName,
+      position: position,
+      department: department,
+    };
+
+    // To-do: Figure out why proxy is not preventing CORS issues
+    postFormData('http://localhost:3001/api/create-employee', newEmployeeData);
   };
 
   return (
@@ -69,8 +112,6 @@ const EmployeeEntryForm = () => {
         name="profile-image"
         value={profileImageFile}
         onChange={inputChangeHandler}
-        placeholder="Joe"
-        required
       ></input>
       <label htmlFor="fname">First Name:</label>
       <input
@@ -79,7 +120,6 @@ const EmployeeEntryForm = () => {
         name="fname"
         value={firstName}
         onChange={inputChangeHandler}
-        required
       />
       <label htmlFor="lname">Last Name:</label>
       <input
@@ -88,7 +128,6 @@ const EmployeeEntryForm = () => {
         name="lname"
         value={lastName}
         onChange={inputChangeHandler}
-        required
       />
       <label htmlFor="position">Position:</label>
       <input
@@ -97,7 +136,6 @@ const EmployeeEntryForm = () => {
         name="position"
         value={position}
         onChange={inputChangeHandler}
-        required
       />
       <label htmlFor="department">Department</label>
       <select
@@ -112,7 +150,9 @@ const EmployeeEntryForm = () => {
         <option value="customer service">Customer Service</option>
       </select>
       <DefaultButton btnColor="default-btn--green" btnLabel="Add Entry" />
-      {formSubmitError && <p>Looks like something went wrong...</p>}
+      {formSubmitError && (
+        <p id="form-submit-error-msg">Looks like something went wrong...</p>
+      )}
     </form>
   );
 };

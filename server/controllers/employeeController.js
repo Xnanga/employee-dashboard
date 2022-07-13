@@ -1,4 +1,4 @@
-const Employee = require("../models/employee");
+const Employee = require('../models/employee');
 
 const employee_get_all = (req, res) => {
   Employee.find()
@@ -10,6 +10,7 @@ const employee_get_all = (req, res) => {
 };
 
 const employee_create = (req, res) => {
+  console.log(req);
   const employee = new Employee(req.body);
   employee.save().catch((err) => console.log(err));
 };
