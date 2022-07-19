@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const employeeSchema = new Schema(
   {
     profileImageFilename: {
       type: String,
-      required: true,
+      required: false,
     },
     firstName: {
       type: String,
@@ -28,4 +28,6 @@ const employeeSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = employeeSchema;
+const Employee = mongoose.model('Employee', employeeSchema);
+
+module.exports = Employee;

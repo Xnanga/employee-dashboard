@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { findByText, fireEvent, render, screen } from '@testing-library/react';
 
 import EmployeeEntryForm from './EmployeeEntryForm';
 
@@ -64,15 +64,66 @@ describe('EmployeeEntryForm component', () => {
   });
 
   describe('does not successfully submit when', () => {
-    test('a field is empty', () => {
-      // To-Do
+    test('a field is empty', async () => {
+      render(<EmployeeEntryForm />);
+
+      const firstNameInput = screen.getByRole('textbox', {
+        name: /first name:/i,
+      });
+      const lastNameInput = screen.getByRole('textbox', {
+        name: /last name:/i,
+      });
+      const positionInput = screen.getByRole('textbox', {
+        name: /position:/i,
+      });
+      const fileUploadButton = screen.getByLabelText(/profile photo:/i);
+      const addEntryButton = screen.getByRole('button');
+
+      firstNameInput.name = 'Joe';
+      lastNameInput.name = 'Bloggs';
+      positionInput.name = 'Software Engineer';
+      fileUploadButton.name = 'C:\\fakepath\\conservatory-icon.png';
+      fireEvent.click(addEntryButton);
+
+      expect(firstNameInput.name).toBe('Joe');
+      expect(lastNameInput.name).toBe('Bloggs');
+      expect(positionInput.name).toBe('Software Engineer');
+      expect(fileUploadButton.name).toBe('C:\\fakepath\\conservatory-icon.png');
+      expect(
+        await screen.findByText('Looks like something went wrong...')
+      ).toBeInTheDocument();
     });
 
-    test('an empty string is provided in an input field', () => {
-      // To-Do
+    test('an empty string is provided in an input field', async () => {
+      render(<EmployeeEntryForm />);
+
+      const firstNameInput = screen.getByRole('textbox', {
+        name: /first name:/i,
+      });
+      const lastNameInput = screen.getByRole('textbox', {
+        name: /last name:/i,
+      });
+      const positionInput = screen.getByRole('textbox', {
+        name: /position:/i,
+      });
+      const fileUploadButton = screen.getByLabelText(/profile photo:/i);
+      const addEntryButton = screen.getByRole('button');
+
+      firstNameInput.name = 'Joe';
+      lastNameInput.name = ' ';
+      positionInput.name = 'Software Engineer';
+      fileUploadButton.name = 'C:\\fakepath\\conservatory-icon.png';
+      fireEvent.click(addEntryButton);
+
+      expect(firstNameInput.name).toBe('Joe');
+      expect(lastNameInput.name).toBe(' ');
+      expect(positionInput.name).toBe('Software Engineer');
+      expect(
+        await screen.findByText('Looks like something went wrong...')
+      ).toBeInTheDocument();
     });
 
-    test('when the file upload field does not recieve a jpg or png file type', () => {
+    test('the file upload field does not receive a jpg or png file type', () => {
       // To-Do
     });
   });
