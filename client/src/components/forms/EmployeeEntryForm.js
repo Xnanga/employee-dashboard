@@ -28,7 +28,7 @@ const checkFileSubmitIsInvalid = (filePath) => {
   return true;
 };
 
-const postFormData = async (url = '', data = {}) => {
+const postFormData = async (url = '', data = { noData: true }) => {
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -39,7 +39,8 @@ const postFormData = async (url = '', data = {}) => {
       },
       body: JSON.stringify(data),
     });
-    return response.json();
+    const responseData = await response.json();
+    return responseData;
   } catch (err) {
     console.error(err);
   }
@@ -68,17 +69,16 @@ const EmployeeEntryForm = () => {
   const employeeEntryFormSubmit = (e) => {
     e.preventDefault();
 
-    const allFormValues = [
-      profileImageFile,
-      firstName,
-      lastName,
-      position,
-      department,
-    ];
+    const allFormValues = [firstName, lastName, position, department];
 
     const nullishValuesCheck = checkForNullishValues(allFormValues);
-    const fileSubmissionInvalidCheck =
-      checkFileSubmitIsInvalid(profileImageFile);
+
+    let fileSubmissionInvalidCheck;
+    if (profileImageFile) {
+      fileSubmissionInvalidCheck = checkFileSubmitIsInvalid(profileImageFile);
+    } else {
+      fileSubmissionInvalidCheck = false;
+    }
 
     if (nullishValuesCheck || fileSubmissionInvalidCheck) {
       setFormSubmitError(true);
@@ -96,7 +96,6 @@ const EmployeeEntryForm = () => {
       department: department,
     };
 
-    // To-do: Figure out why proxy is not preventing CORS issues
     postFormData('http://localhost:3001/api/create-employee', newEmployeeData);
   };
 

@@ -5,7 +5,7 @@ const employeeSchema = new Schema(
   {
     profileImageFilename: {
       type: String,
-      required: true,
+      required: false,
     },
     firstName: {
       type: String,
@@ -30,4 +30,4 @@ const employeeSchema = new Schema(
 
 const Employee = mongoose.model('Employee', employeeSchema);
 
-module.exports = employeeSchema;
+module.exports = Employee;

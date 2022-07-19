@@ -1,3 +1,4 @@
+const express = require('express');
 const Employee = require('../models/employee');
 
 const employee_get_all = (req, res) => {
@@ -10,7 +11,7 @@ const employee_get_all = (req, res) => {
 };
 
 const employee_create = (req, res) => {
-  console.log(req);
+  console.log(req.body);
   const employee = new Employee(req.body);
   employee.save().catch((err) => console.log(err));
 };
