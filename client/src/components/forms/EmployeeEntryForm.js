@@ -28,31 +28,14 @@ const checkFileSubmitIsInvalid = (filePath) => {
   return true;
 };
 
-const postFormData = async (url = '', data = { noData: true }) => {
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // prettier-ignore
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    const responseData = await response.json();
-    return responseData;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 const EmployeeEntryForm = () => {
   const [profileImageFile, setProfileImageFile] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [position, setPosition] = useState('');
-  const [department, setDepartment] = useState('it');
+  const [department, setDepartment] = useState('IT');
   const [formSubmitError, setFormSubmitError] = useState(false);
+  const [formSubmitSuccess, setFormSubmitSuccess] = useState(false);
 
   const inputChangeHandler = (e) => {
     const inputElementId = e.target.id;
@@ -66,7 +49,29 @@ const EmployeeEntryForm = () => {
     if (inputElementId === 'department') setDepartment(inputElementValue);
   };
 
-  const employeeEntryFormSubmit = (e) => {
+  const postFormData = async (url = '', data = { noData: true }) => {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // prettier-ignore
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      const responseData = await response.json();
+      setFormSubmitSuccess(true);
+      console.log(responseData);
+      return responseData;
+    } catch (err) {
+      console.error(err);
+      setFormSubmitSuccess(false);
+      return err;
+    }
+  };
+
+  const employeeEntryFormSubmit = async (e) => {
     e.preventDefault();
 
     const allFormValues = [firstName, lastName, position, department];
@@ -82,6 +87,7 @@ const EmployeeEntryForm = () => {
 
     if (nullishValuesCheck || fileSubmissionInvalidCheck) {
       setFormSubmitError(true);
+      setFormSubmitSuccess(false);
       setProfileImageFile('');
       return;
     }
@@ -143,14 +149,17 @@ const EmployeeEntryForm = () => {
         value={department}
         onChange={inputChangeHandler}
       >
-        <option value="it">IT</option>
-        <option value="medical">Medical</option>
-        <option value="operations">Operations</option>
-        <option value="customer service">Customer Service</option>
+        <option value="IT">IT</option>
+        <option value="Medical">Medical</option>
+        <option value="Operations">Operations</option>
+        <option value="Customer Service">Customer Service</option>
       </select>
       <DefaultButton btnColor="default-btn--green" btnLabel="Add Entry" />
       {formSubmitError && (
         <p id="form-submit-error-msg">Looks like something went wrong...</p>
+      )}
+      {formSubmitSuccess && (
+        <p id="form-submit-success-msg">Your details have been saved!</p>
       )}
     </form>
   );
