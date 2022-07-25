@@ -1,10 +1,9 @@
-// import JSONResponseTest from "./components/JSONResponseTest";
-import MainTopBar from "./components/ui/MainTopBar";
-import EmployeeList from "./components/employee-list/EmployeeList";
+import MainTopBar from './components/ui/MainTopBar';
+import EmployeeList from './components/employee-list/EmployeeList';
 
 const App = () => {
   const btnTestAction = () => {
-    console.log("Button Press");
+    console.log('Button Press');
   };
 
   return (

@@ -5,8 +5,15 @@ import EmployeeWidget from './EmployeeWidget';
 
 const EmployeeList = () => {
   const [allEmployeeData, setAllEmployeeData] = useState(null);
+  const [employeeDataChanged, setEmployeeDataChanged] = useState(false);
+  const [dataIsLoading, setDataIsLoading] = useState(false);
+
+  const employeeDataChangeHandler = () => {
+    setEmployeeDataChanged((prevState) => !prevState);
+  };
 
   useEffect(() => {
+    setDataIsLoading(true);
     const getAllEmployeeData = async () => {
       const response = await fetch(
         'http://localhost:3001/api/get-all-employees'
@@ -15,8 +22,8 @@ const EmployeeList = () => {
       setAllEmployeeData(responseData.data);
     };
 
-    getAllEmployeeData().catch(console.error);
-  }, []);
+    getAllEmployeeData().catch(console.error).finally(setDataIsLoading(false));
+  }, [employeeDataChanged]);
 
   return (
     <div className={styles['employee-list']}>
@@ -30,10 +37,12 @@ const EmployeeList = () => {
               lastName={employee.lastName}
               position={employee.position}
               department={employee.department}
+              employeeDataChangeHandler={employeeDataChangeHandler}
             />
           );
         })}
-      {!allEmployeeData && <p>No Employee Data Available</p>}
+      {!allEmployeeData && !dataIsLoading && <p>No Employee Data Available</p>}
+      {dataIsLoading && <p>Loading Employee Data...</p>}
     </div>
   );
 };

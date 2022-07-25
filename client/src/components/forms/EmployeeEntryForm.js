@@ -62,7 +62,6 @@ const EmployeeEntryForm = () => {
       });
       const responseData = await response.json();
       setFormSubmitSuccess(true);
-      console.log(responseData);
       return responseData;
     } catch (err) {
       console.error(err);
