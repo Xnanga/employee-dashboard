@@ -23,10 +23,6 @@ const EmployeeWidget = (props) => {
     }
   };
 
-  const buttonClickTest = () => {
-    console.log('Button Clicked');
-  };
-
   return (
     <section id={props.id} className={styles['employee-widget']}>
       <div className={styles['employee-widget__img-section']}>
@@ -52,8 +48,8 @@ const EmployeeWidget = (props) => {
         </ul>
       </div>
       <div className={styles['employee-widget__btn-section']}>
-        <Link to="/employee-id?edit">
-          <DefaultButton btnAction={buttonClickTest} btnLabel="Edit Entry" />
+        <Link to={`/employees/${props.id}`}>
+          <DefaultButton btnLabel="Edit Entry" />
         </Link>
         <DefaultButton
           btnAction={() => sendEmployeeDeleteRequest(props.id)}
@@ -66,18 +62,3 @@ const EmployeeWidget = (props) => {
 };
 
 export default EmployeeWidget;
-
-// Name: Joe Bloggs
-// Position: Software Engineer
-// Department: Digital
-// Line Manager: Jane Doe
-// Salary (per annum): 55,000
-// Join Date: 23/07/2020
-// Telephone: 0141 123 456
-// Email: joebloggs@hotmail.co.uk
-// Street: 52 Navy Street
-// City: Glasgow
-// Postcode: G21 3HS
-// County: Lanarkshire
-// Country: United Kingdom
-// National Insurance No: HW12345678

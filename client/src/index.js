@@ -5,8 +5,9 @@ import './index.css';
 import App from './App';
 import MainBodyLayout from './components/layout/MainBodyLayout';
 
-import EmployeeIdEdit from './routes/employee-id?edit';
+import EmployeeIdEdit from './routes/:employeeId';
 import AddEmployee from './routes/add-employee';
+import NotFoundPage from './routes/404-not-found';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,8 +16,10 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="add-employee" element={<AddEmployee />} />
-          <Route path="employee-id?edit" element={<EmployeeIdEdit />} />
+          <Route path="/add-employee" element={<AddEmployee />} />
+          // Why does this dynamic path not work?
+          <Route path="/employees/:employeeId" element={<EmployeeIdEdit />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </MainBodyLayout>
