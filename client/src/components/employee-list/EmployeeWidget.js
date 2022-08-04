@@ -5,8 +5,22 @@ import styles from './EmployeeWidget.module.css';
 import DefaultButton from '../ui/DefaultButton';
 
 const EmployeeWidget = (props) => {
-  const buttonClickTest = () => {
-    console.log('Button Click');
+  const sendEmployeeDeleteRequest = async (employeeId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/delete-employee&id=${employeeId}`,
+        {
+          method: 'DELETE',
+          body: { employeeId: employeeId },
+        }
+      );
+      const responseData = await response.json();
+      props.employeeDataChangeHandler();
+      return responseData;
+    } catch (err) {
+      console.error(err);
+      return err;
+    }
   };
 
   return (
@@ -34,18 +48,11 @@ const EmployeeWidget = (props) => {
         </ul>
       </div>
       <div className={styles['employee-widget__btn-section']}>
-        <Link to="/employee-id">
-          <DefaultButton
-            btnAction={buttonClickTest}
-            btnLabel="View Entry"
-            btnColor="default-btn--green"
-          />
-        </Link>
-        <Link to="/employee-id?edit">
-          <DefaultButton btnAction={buttonClickTest} btnLabel="Edit Entry" />
+        <Link to={`/employees/${props.id}`}>
+          <DefaultButton btnLabel="Edit Entry" />
         </Link>
         <DefaultButton
-          btnAction={buttonClickTest}
+          btnAction={() => sendEmployeeDeleteRequest(props.id)}
           btnLabel="Delete Entry"
           btnColor="default-btn--red"
         />
@@ -55,18 +62,3 @@ const EmployeeWidget = (props) => {
 };
 
 export default EmployeeWidget;
-
-// Name: Joe Bloggs
-// Position: Software Engineer
-// Department: Digital
-// Line Manager: Jane Doe
-// Salary (per annum): 55,000
-// Join Date: 23/07/2020
-// Telephone: 0141 123 456
-// Email: joebloggs@hotmail.co.uk
-// Street: 52 Navy Street
-// City: Glasgow
-// Postcode: G21 3HS
-// County: Lanarkshire
-// Country: United Kingdom
-// National Insurance No: HW12345678

@@ -1,7 +1,7 @@
 import MainTopBar from '../components/ui/MainTopBar';
 import EmployeeEntryForm from '../components/forms/EmployeeEntryForm';
 
-const AddEmployee = () => {
+const EmployeeIdEdit = () => {
   return (
     <>
       <MainTopBar
@@ -15,4 +15,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default EmployeeIdEdit;
