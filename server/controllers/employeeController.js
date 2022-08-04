@@ -40,11 +40,7 @@ const employee_create = (req, res) => {
   const employee = new Employee(req.body);
   employee
     .save()
-    .then(
-      res.send({
-        body: employee,
-      })
-    )
+    .then(res.send({ body: employee }))
     .catch((err) => {
       console.err(err);
       return res.status(500).json({

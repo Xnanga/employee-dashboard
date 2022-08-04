@@ -1,5 +1,5 @@
 import MainTopBar from '../components/ui/MainTopBar';
-import EmployeeEntryForm from '../components/forms/EmployeeEntryForm';
+import EmployeeEntryForm from '../components/forms/EmployeeEntryForm/EmployeeEntryForm';
 
 const AddEmployee = () => {
   return (
