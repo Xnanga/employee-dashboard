@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
-import styles from './EmployeeList.module.css';
-
+import styled from '@emotion/styled';
 import EmployeeWidget from './EmployeeWidget';
+
+const EmployeeListContainer = styled.div`
+  & > :not(:last-child) {
+    margin-bottom: 1rem;
+  }
+`;
 
 const EmployeeList = () => {
   const [allEmployeeData, setAllEmployeeData] = useState(null);
@@ -26,7 +31,7 @@ const EmployeeList = () => {
   }, [employeeDataChanged]);
 
   return (
-    <div className={styles['employee-list']}>
+    <EmployeeListContainer>
       {allEmployeeData &&
         allEmployeeData?.map((employee) => {
           return (
@@ -43,7 +48,7 @@ const EmployeeList = () => {
         })}
       {!allEmployeeData && !dataIsLoading && <p>No Employee Data Available</p>}
       {dataIsLoading && <p>Loading Employee Data...</p>}
-    </div>
+    </EmployeeListContainer>
   );
 };
 

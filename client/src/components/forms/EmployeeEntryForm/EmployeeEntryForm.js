@@ -1,11 +1,24 @@
 import { useEffect, useState } from 'react';
-
-import styles from './EmployeeEntryForm.module.css';
-
+import styled from '@emotion/styled';
 import departmentsData from '../../../data/departments-data';
 import checkForNullishValues from '../../../utils/check-for-nullish-values';
 import checkImageFilePathIsInvalid from '../../../utils/check-image-file-path-is-valid';
 import DefaultButton from '../../ui/DefaultButton';
+
+const EntryForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 35rem;
+
+  & > input {
+    margin-bottom: 1.5rem;
+  }
+
+  & > button {
+    margin-top: auto;
+  }
+`;
 
 const EmployeeEntryForm = () => {
   const [profileImageFile, setProfileImageFile] = useState('');
@@ -213,10 +226,10 @@ const EmployeeEntryForm = () => {
   const submitButtons = (
     <>
       {!hasExistingData && (
-        <DefaultButton btnColor="default-btn--green" btnLabel="Add Entry" />
+        <DefaultButton btnColor="green" btnLabel="Add Entry" />
       )}
       {hasExistingData && (
-        <DefaultButton btnColor="default-btn--blue" btnLabel="Update Entry" />
+        <DefaultButton btnColor="blue" btnLabel="Update Entry" />
       )}
     </>
   );
@@ -241,14 +254,11 @@ const EmployeeEntryForm = () => {
       {dataIsLoading ? (
         <p>Employee profile loading...</p>
       ) : (
-        <form
-          className={styles['employee-entry-form']}
-          onSubmit={employeeEntryFormSubmit}
-        >
+        <EntryForm onSubmit={employeeEntryFormSubmit}>
           {formFields}
           {!formSubmitSuccess && submitButtons}
           {submitMessages}
-        </form>
+        </EntryForm>
       )}
     </>
   );

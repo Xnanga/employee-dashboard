@@ -1,15 +1,22 @@
 import { Link } from 'react-router-dom';
-
-import styles from './MainTopBar.module.css';
-
+import styled from '@emotion/styled';
 import DefaultButton from './DefaultButton';
+
+const TopBar = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+
+  & > h1 {
+    margin: 0;
+  }
+`;
 
 const MainTopBar = (props) => {
   return (
-    <header className={styles['employee-list-top-bar']}>
-      <h1 className={styles['employee-list-top-bar__heading']}>
-        {props.title}
-      </h1>
+    <TopBar>
+      <h1>{props.title}</h1>
       {props.hyperlink && (
         <Link to={props.hyperlink}>
           <DefaultButton
@@ -19,7 +26,7 @@ const MainTopBar = (props) => {
           />
         </Link>
       )}
-    </header>
+    </TopBar>
   );
 };
 
