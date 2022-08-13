@@ -7,7 +7,7 @@ const AddEmployee = () => {
       <MainTopBar
         title="Add Employee Entry"
         hyperlink="/"
-        btnColor="default-btn--red"
+        btnColor="blue"
         btnLabel="<< Back to All Entries"
       />
       <EmployeeEntryForm />

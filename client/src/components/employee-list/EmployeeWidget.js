@@ -1,8 +1,47 @@
 import { Link } from 'react-router-dom';
-
-import styles from './EmployeeWidget.module.css';
-
+import styled from '@emotion/styled';
 import DefaultButton from '../ui/DefaultButton';
+
+const EmployeeWidgetSection = styled.section`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid grey;
+  background-color: var(--light-grey);
+`;
+
+const ImageSection = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > img {
+    height: 12.5rem;
+    width: 12.5rem;
+    border: 1px solid grey;
+  }
+`;
+
+const InfoSection = styled.div`
+  height: 100%;
+
+  & > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    line-height: 2.25;
+    list-style-type: none;
+  }
+`;
+
+const ButtonSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 12.5rem;
+  margin-left: auto;
+`;
 
 const EmployeeWidget = (props) => {
   const sendEmployeeDeleteRequest = async (employeeId) => {
@@ -24,15 +63,15 @@ const EmployeeWidget = (props) => {
   };
 
   return (
-    <section id={props.id} className={styles['employee-widget']}>
-      <div className={styles['employee-widget__img-section']}>
+    <EmployeeWidgetSection id={props.id}>
+      <ImageSection>
         <img
           src="https://nutristyle.com/wp-content/uploads/2020/06/bio-photo-placeholder.png"
           alt="Employee Portrait"
         />
-      </div>
-      <div className={styles['employee-widget__info-section']}>
-        <ul className={styles['employee-widget__info-section__list']}>
+      </ImageSection>
+      <InfoSection>
+        <ul>
           <li>
             <strong>Name: </strong>
             {`${props.firstName} ${props.lastName}`}
@@ -46,18 +85,18 @@ const EmployeeWidget = (props) => {
             {props.department}
           </li>
         </ul>
-      </div>
-      <div className={styles['employee-widget__btn-section']}>
+      </InfoSection>
+      <ButtonSection>
         <Link to={`/employees/${props.id}`}>
           <DefaultButton btnLabel="Edit Entry" />
         </Link>
         <DefaultButton
           btnAction={() => sendEmployeeDeleteRequest(props.id)}
           btnLabel="Delete Entry"
-          btnColor="default-btn--red"
+          btnColor="red"
         />
-      </div>
-    </section>
+      </ButtonSection>
+    </EmployeeWidgetSection>
   );
 };
 
