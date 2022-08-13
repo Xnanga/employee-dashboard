@@ -7,7 +7,7 @@ const App = () => {
       <MainTopBar
         title="Employee Entries"
         hyperlink="/add-employee"
-        btnColor="default-btn--green"
+        btnColor="green"
         btnLabel="+ Add Entry"
       />
       <EmployeeList />
