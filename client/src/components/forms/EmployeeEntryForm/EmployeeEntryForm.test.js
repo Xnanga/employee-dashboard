@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { findByText, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import EmployeeEntryForm from './EmployeeEntryForm';
 

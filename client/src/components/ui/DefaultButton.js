@@ -6,28 +6,31 @@ const buttonColours = {
   red: '#c52828',
 };
 
+const Button = styled.button`
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  background-color: ${({ btnColor }) => buttonColours[btnColor] || 'blue'};
+
+  &:hover,
+  &:active {
+    transform: scale(1.05);
+  }
+`;
+
 const DefaultButton = (props) => {
-  const Button = styled.button({
-    display: 'inline-block',
-    padding: '0.75rem 1rem',
-    borderRadius: '5px',
-    textDecoration: 'none',
-    textTransform: 'uppercase',
-    fontWeight: '400',
-    color: '#ffffff',
-    textAlign: 'center',
-    transition: 'all 0.2s',
-    cursor: 'pointer',
-    backgroundColor: props.btnColor
-      ? buttonColours[props.btnColor]
-      : buttonColours.blue,
-
-    '&:hover, &:active': {
-      transform: 'scale(1.05)',
-    },
-  });
-
-  return <Button onClick={props.btnAction}>{props.btnLabel}</Button>;
+  return (
+    <Button btnColor={props.btnColor} onClick={props.btnAction}>
+      {props.btnLabel}
+    </Button>
+  );
 };
 
 export default DefaultButton;

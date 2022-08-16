@@ -87,6 +87,7 @@ const EmployeeWidget = (props) => {
         </ul>
       </InfoSection>
       <ButtonSection>
+        {/* Look into Router error in Jest test */}
         <Link to={`/employees/${props.id}`}>
           <DefaultButton btnLabel="Edit Entry" />
         </Link>
